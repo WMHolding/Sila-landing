@@ -1,12 +1,12 @@
 "use client";
 
-import { ArrowRight, ChevronRight, MessageSquare, BarChart3, Globe2, Zap, Users, Shield } from "lucide-react";
+import { useState } from "react";
+import { ArrowRight, ChevronRight, MessageSquare, BarChart3, Globe2, Zap, Users } from "lucide-react";
 import { TextEffect } from "@/components/motion-primitives/text-effect";
 import { AnimatedGroup } from "@/components/motion-primitives/animated-group";
 import { AnimatedCounter } from "@/components/ui/animated-counter";
 import { ChatMockup } from "@/components/ui/chat-mockup";
-
-const APP_URL = "https://app.sila-ai.app";
+import { LeadForm } from "@/components/ui/lead-form";
 
 const steps = [
   {
@@ -57,9 +57,16 @@ const countries = [
   { code: "OMN", name: "Oman" },
 ];
 
-export default function PrecisionPage() {
+export default function HomePage() {
+  const [isFormOpen, setIsFormOpen] = useState(false);
+
+  const openForm = () => setIsFormOpen(true);
+
   return (
     <main className="relative min-h-screen overflow-x-hidden bg-white">
+      {/* Lead Capture Form */}
+      <LeadForm isOpen={isFormOpen} onClose={() => setIsFormOpen(false)} />
+
       {/* Navigation */}
       <header className="fixed top-0 left-0 right-0 z-40 bg-white/80 backdrop-blur-xl">
         <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
@@ -73,19 +80,13 @@ export default function PrecisionPage() {
             <a href="#coverage" className="transition-colors hover:text-slate-900">Coverage</a>
           </nav>
           <div className="flex items-center gap-3">
-            <a
-              href={`${APP_URL}/sign-in`}
-              className="text-sm font-medium text-slate-600 transition-colors hover:text-slate-900"
-            >
-              Sign In
-            </a>
-            <a
-              href={`${APP_URL}/sign-up`}
+            <button
+              onClick={openForm}
               className="group inline-flex items-center gap-1.5 rounded-full bg-blue-600 px-4 py-2 text-sm font-medium text-white transition-all hover:bg-blue-700"
             >
               Get Started
               <ChevronRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-            </a>
+            </button>
           </div>
         </div>
       </header>
@@ -131,13 +132,13 @@ export default function PrecisionPage() {
               }}
               className="flex flex-col sm:flex-row items-center justify-center gap-4"
             >
-              <a
-                href={`${APP_URL}/sign-up`}
+              <button
+                onClick={openForm}
                 className="group inline-flex items-center gap-2 rounded-full bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/25 transition-all hover:bg-blue-700 hover:shadow-xl hover:shadow-blue-600/30"
               >
                 Get Started
                 <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5" />
-              </a>
+              </button>
               <a
                 href="#how-it-works"
                 className="inline-flex items-center gap-2 text-sm font-medium text-slate-600 transition-colors hover:text-slate-900"
@@ -160,7 +161,7 @@ export default function PrecisionPage() {
       <section className="border-y border-slate-100 bg-slate-50/50 py-12">
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
-            {metrics.map((metric, index) => (
+            {metrics.map((metric) => (
               <div key={metric.label} className="text-center">
                 <div className="text-4xl font-bold tracking-tight text-slate-900 lg:text-5xl">
                   <AnimatedCounter value={metric.value} suffix={metric.suffix} />
@@ -288,18 +289,18 @@ export default function PrecisionPage() {
               Join enterprises across Saudi Arabia and the GCC modernizing how they source and procure.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <a
-                href={`${APP_URL}/sign-up`}
+              <button
+                onClick={openForm}
                 className="inline-flex items-center gap-2 rounded-full bg-white px-8 py-4 text-sm font-semibold text-slate-900 transition-all hover:bg-slate-100"
               >
                 Get Started
                 <ArrowRight className="h-4 w-4" />
-              </a>
+              </button>
               <a
-                href="mailto:hello@sila-ai.app"
+                href="mailto:abdulrahman.alzamil10@gmail.com"
                 className="inline-flex items-center gap-2 text-sm font-medium text-slate-400 transition-colors hover:text-white"
               >
-                Or email us at hello@sila-ai.app
+                Or email us directly
               </a>
             </div>
           </div>
@@ -317,7 +318,7 @@ export default function PrecisionPage() {
             <div className="flex items-center gap-6 text-sm text-slate-600">
               <a href="#how-it-works" className="hover:text-slate-900">How it Works</a>
               <a href="#capabilities" className="hover:text-slate-900">Capabilities</a>
-              <a href="mailto:hello@sila-ai.app" className="hover:text-slate-900">Contact</a>
+              <button onClick={openForm} className="hover:text-slate-900">Contact</button>
             </div>
             <div className="text-sm text-slate-500">
               &copy; 2025 SILA
